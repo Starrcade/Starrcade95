@@ -1,4 +1,5 @@
 #!/bin/bash
+clear
 
 ssh=""
 install_ssh=""
@@ -33,29 +34,24 @@ echo "Testing Internet Access ..."
 ping -c 3 www.gentoo.org
 echo "Does the Internet Access work? (yes/no)"
 read internet
-if internet="yes"
-then echo ""
-else echo ""
+
+if [ "$internet" = "no" ]
+then
+    net-setup eth0
+else
+    echo ""
 fi
-if internet="no"
-then net-setup eth0
-else echo ""
-fi
-if internet="yes"
-then echo ""      
-else echo ""
-fi
+
 echo "Would you like to start an SSH-Server for remote installation? (yes/no)"
 read ssh
-if ssh="yes"
+
+if [ "$ssh" = "yes" ]
 then
     /etc/init.d/sshd start
-else echo ""
+else
+    echo ""
 fi
-if ssh="no"
-then echo ""    
-else echo ""
-fi
+
     echo "Partitioning"
     echo "(Please input just the block device without /dev/)"
     echo "------------------------------------"
@@ -192,14 +188,14 @@ fi
     nano -w /etc/hosts
     echo "Are you using a PCMCIA card? (y/n)"
     read pcmcia
-    if pcmcia="y"
-    then emerge sys-apps/pcmciautils
-    else echo ""
+
+    if [ "$pcmcia" = "y" ]
+    then
+	emerge sys-apps/pcmciautils
+    else
+	echo ""
     fi
-    if pcmcia="n"
-    then echo ""
-    else echo ""
-    fi
+    
     echo "Now setting the root password."
     passwd
     echo "now review the rc.conf file and make changes if neccessary for booting."
@@ -216,28 +212,40 @@ fi
     rc-update add sysklogd default
     echo "Would you like to install a cronjob daemon? (y/n)"
     read cron_support
-    if cron_support="y"
-    then emerge sys-process/cronie;
+
+    if [ "$cron_support" = "y" ]
+    then
+	 emerge sys-process/cronie;
 	 rc-update add cronie default;
 	 crontab /etc/crontab
-    else echo ""
+    else
+	echo ""
     fi
+    
     echo "Would you like to enable file indexing? (y/n)"
     read file_indexing
-    if file_indexing="y"
-    then emerge sys-apps/mlocate
-    else echo ""
+
+    if [ "$file_indexing" = "y" ]
+    then
+	emerge sys-apps/mlocate
+    else
+	echo ""
     fi
+    
     echo "Would you like to install the SSH-Server? (y/n)"
-    if install_ssh="y"
+    read install_ssh
+    
+    if [ "$install_ssh" = "y" ]
     then emerge --ask --changed-use net-misc/openssh;
 	 /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N "";
 	 /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N "";
 	 nano -w /etc/ssh/sshd_config;
 	 rc-update add sshd default;
 	 rc-service sshd start
-    else echo ""
+    else
+	echo ""
     fi
+    
     echo "Installing additional filesystem tools..."
     emerge sys-fs/e2fsprogs
     emerge sys-fs/dosfstools
@@ -258,11 +266,14 @@ fi
     echo "and specify your partition to install grub to ..."
     echo "partition:"
     read grub_part
-    if bios_efi="bios"
-    then grub2-install $grub_part
+
+    if [ "$bios_efi" = "bios" ]
+    then
+	grub2-install $grub_part
     else
-    grub2-install --target=x86_64-efi --efi-directory=/boot/efi
+	grub2-install --target=x86_64-efi --efi-directory=/boot/efi
     fi
+    
     echo "Generating grub.cfg..."
     grub2-mkconfig -o /boot/grub/grub.cfg
     echo "Done."
@@ -277,16 +288,23 @@ fi
     echo "It is not needed anymore and can safely be removed."
     echo "(y/n)"
     read delete_tarball
-    if delete_tarball="y"
-    then rm /stage3-*.tar.bz2*
-    else echo ""
+
+    if [ "$delete_tarball" = "y" ]
+    then
+	rm /stage3-*.tar.bz2*
+    else
+	echo ""
     fi
+    
     echo "Unmounting everything ..."
     umount -a
     echo "Please note: It is recommendet to do an eix-sync -v and an emerge -uvDNa --with-bdeps=y @world and also an etc-update after reboot."
     echo "Would you like to reboot? (y/n)"
     read reboot
-    if reboot="y"
-    then reboot
-    else exit
+
+    if [ "$reboot" = "y" ]
+    then
+	reboot
+    else
+	exit
     fi
