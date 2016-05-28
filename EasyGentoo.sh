@@ -33,9 +33,12 @@ echo "Testing Internet Access ..."
 ping -c 3 www.gentoo.org
 echo "Does the Internet Access work? (yes/no)"
 read internet
+if internet="yes"
+then echo ""
+else echo ""
+fi
 if internet="no"
-then
-    net-setup eth0
+then net-setup eth0
 else echo ""
 fi
 if internet="yes"
@@ -54,6 +57,7 @@ then echo ""
 else echo ""
 fi
     echo "Partitioning"
+    echo "(Please input just the block device without /dev/)"
     echo "------------------------------------"
     echo "Choose the block device for the root partition:"
     lsblk
@@ -190,6 +194,10 @@ fi
     read pcmcia
     if pcmcia="y"
     then emerge sys-apps/pcmciautils
+    else echo ""
+    fi
+    if pcmcia="n"
+    then echo ""
     else echo ""
     fi
     echo "Now setting the root password."
