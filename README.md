@@ -5,7 +5,7 @@ without writing a single line of code by yourself.
 This script is for lazy people or people unable to install gentoo.
 You get an original gentoo installation with a few customization options.
 
-Just run the EasyGentoo.sh and follow the Instructions.
+Just run EasyGentoo and follow the Instructions.
 
 This script was brought to you by Pascal33366 (https://github.com/Pascal3366/)
 
