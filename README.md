@@ -9,6 +9,4 @@ Just run EasyGentoo and follow the Instructions.
 
 This script was brought to you by Pascal33366 (https://github.com/Pascal3366/)
 
-Feel free to ahre, fork or contribute.
-
 This script is free software lying under the GPLv3 and you are allowed, to share, fork or contribute.
