@@ -97,4 +97,5 @@ fi
     mount --make-rslave /mnt/gentoo/dev
     echo "Getting into the new created chroot ..."
     wget https://raw.githubusercontent.com/Pascal3366/EasyGentoo/master/chrooted
+    chmod a+x ./chrooted
     chroot /mnt/gentoo ./chrooted
