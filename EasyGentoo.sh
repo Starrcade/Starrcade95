@@ -91,7 +91,7 @@ fi
     mount /dev/$home_part /mnt/gentoo/home
     echo "Getting the newest stage3 tarball..."
     cd /mnt/gentoo
-    wget ftp://ftp.halifax.rwth-aachen.de/gentoo/releases/amd64/autobuilds/current-stage3-amd64/stage3-amd64-20160519.tar.bz2
+    wget http://ftp.halifax.rwth-aachen.de/gentoo/releases/amd64/autobuilds/current-stage3-amd64/stage3-amd64-20160526.tar.bz2
     tar xvjpf stage3-*.tar.bz2 --xattrs
     read -p "Press any key to edit your make.conf" -n1 -s
     nano -w /mnt/gentoo/etc/portage/make.conf
@@ -135,7 +135,7 @@ fi
     echo "Select Timezone"
     echo "timezone:"
     read timezone
-    echo timezone > /etc/timezone
+    echo $timezone > /etc/timezone
     emerge --config sys-libs/timezone-data
     echo "Configuring locales ..."
     read -p "Press any key to edit your locale settings. Uncomment all of your wanted language entries."
