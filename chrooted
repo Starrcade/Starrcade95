@@ -54,6 +54,7 @@ eselect locale set $locale
 echo "Reloading Environemnt ..."
 env-update && source /etc/profile && export PS1="(chroot) $PS1"
 echo "Compiling and installing the kernel ..."
+emerge sys-kernel/gentoo-sources
 emerge sys-kernel/genkernel
 echo "Done."
 echo "Next you need edit your fstab file."
