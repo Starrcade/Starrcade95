@@ -76,6 +76,7 @@ read -p "Press any key to set your domain name." -n1 -s
 nano -w /etc/conf.d/net
 echo "Now configuring the network."
 emerge --noreplace net-misc/netifrc
+ifconfig
 echo "again edit the net file but this time enter dhcp if using dhcp or an ip for static ip"
 echo "for the field ´config_eth0=´"
 echo "or any other of your used LAN/WIFI interfaces."
@@ -158,17 +159,17 @@ echo "Installing DHCP Service ..."
 emerge net-misc/dhcpcd
 echo "Now installing the bootloader."
 echo "We will use Grub2."
-emerge sys-boot/grub:2
 echo "Now set the line GRUB_PLATFORMS= in /etc/portage/make.conf"
 read -p "Press any key to edit the file..." -n1 -s
 nano -w /etc/portage/make.conf
 echo "Now Installing Grub2..."
-emerge sys-boot/grub:2
+emerge sys-boot/grub
 echo "are you using bios or efi?"
 echo "enter bios or efi"
 echo "input:"
 read bios_efi
 echo "and specify your partition to install grub to ..."
+echo "(this must be your root disk, (for example /dev/sda)"
 echo "partition:"
 read grub_part
 
@@ -176,7 +177,7 @@ if [ "$bios_efi" = "bios" ]
 then
 grub2-install $grub_part
 else
-grub2-install --target=x86_64-efi --efi-directory=/boot/efi
+grub2-install --efi-directory=/boot/efi
 fi
 
 echo "Generating grub.cfg..."
