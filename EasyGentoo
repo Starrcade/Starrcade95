@@ -1,4 +1,7 @@
 #!/bin/bash
+
+#by Pascal3366
+
 clear
 
 ssh=""
