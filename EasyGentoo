@@ -11,7 +11,7 @@ efi_boot_part=""
 bios_boot_part=""
 home_part=""
 swap_part=""
-tarball_url="http://distfiles.gentoo.org/releases/amd64/autobuilds/20161027/stage3-amd64-20161027.tar.bz2"
+tarball_url="http://distfiles.gentoo.org/releases/amd64/autobuilds/20170706/stage3-amd64-20170706.tar.bz2"
 
 echo "Welcome to the Easy Gentoo Installer!"
 echo "brought to you by Pascal3366"
@@ -21,6 +21,7 @@ echo "This script needs to be run under root."
 echo "------------------------------------"
 echo "Getting IP address through DHCP..."
 dhcpcd
+ifconfig
 echo "Testing Internet Access ..."
 ping -c 3 www.gentoo.org
 echo "Does the Internet Access work? (yes/no)"
@@ -28,7 +29,7 @@ read internet
 
 if [ "$internet" = "no" ]
 then
-    net-setup eth0
+    net-setup wlan0
 else
     echo ""
 fi
